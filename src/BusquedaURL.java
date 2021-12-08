@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.CharBuffer;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
@@ -61,6 +60,9 @@ public class BusquedaURL {
             // Mientras queden líneas por leer, revisará si éstas contienen un href (un
             // hipervínculo)
             while ((inputLine = buff.readLine()) != null) {
+                // TODO: Implementar caso en que una línea posea más de 1 href
+                // TODO: Implementar que los links que partan de un slash se lean (considerando
+                // que lo que va antes del slash es el url padre)
                 if (inputLine.contains("href")) {
                     // Se ubica en la posición posterior a href=" y crea un substring con el
                     // contenido entre las comillas del href
@@ -98,7 +100,6 @@ public class BusquedaURL {
                 System.out.println("El nodo revisado difiere del que salió por la cola");
                 System.exit(-1);
             }
-
             buff.close();
         } catch (IOException e) {
             // El link a revisar no corresponde a una URL con la que se establezca una
