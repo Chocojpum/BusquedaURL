@@ -13,18 +13,28 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class BusquedaURL {
 
     static Nodo root;
     static Queue<Nodo> cola = new LinkedList<Nodo>();
     static String url2;
-    static ArrayList<String> linksRevisados = new ArrayList();
+    static ArrayList<String> linksRevisados = new ArrayList<>();
 
     public static void main(String[] args) {
-        String url1 = "https://adecca.ubiobio.cl/session/login";
-        url2 = "https://www.facebook.com";
-        int profundidad = 3;
+        Scanner sc = new Scanner(System.in);
+        String url1 = "";
+        String url2 = "";
+        int profundidad ;
+
+        System.out.println("Ingrese el link de inicio");
+        url1=sc.nextLine();
+         System.out.println("Ingrese el link objetivo");
+        url2=sc.nextLine();
+        System.out.println("Ingrese la profundidad máxima a buscar");
+        profundidad= sc.nextInt();
+        sc.close();
 
         root = new Nodo(url1, 0, null);
         cola.add(root);
@@ -50,7 +60,6 @@ public class BusquedaURL {
                 System.exit(1);
             }
             buscaLinks(cola.element());
-
         }
     }
 
@@ -114,8 +123,7 @@ public class BusquedaURL {
             // El link a revisar no corresponde a una URL con la que se establezca una
             // conexión, por lo que lo quita de la cola
 
-            System.out.println("\nHipervínculo ignorado: " + cola.poll().getUrl());
-            System.out.println("Seguimos buscando...");
+            System.out.println("\nHipervínculo ignorado: " + cola.poll().getUrl()); 
         } catch (NoSuchElementException e) {
             // La cola se encontraba vacía pero se estaba revisando un nodo
             System.err.println("La cola quedó vacía pero habían nodos por recorrer");
